@@ -104,52 +104,56 @@ mod tests {
             code_description: None,
             source: Some("rustc".to_string()),
             message: "message".to_string(),
-            related_information: Some(vec![DiagnosticRelatedInformation {
-                location: lsp_types::Location {
-                    uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
-                    range: Range {
-                        start: Position {
-                            line: 1928,
-                            character: 28034,
-                        },
-                        end: Position {
-                            line: 28034,
-                            character: 1928,
-                        },
-                    },
-                },
-                message: "message".to_string(),
-            }, DiagnosticRelatedInformation {
-                location: lsp_types::Location {
-                    uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
-                    range: Range {
-                        start: Position {
-                            line: 1928,
-                            character: 28034,
-                        },
-                        end: Position {
-                            line: 28034,
-                            character: 1928,
+            related_information: Some(vec![
+                DiagnosticRelatedInformation {
+                    location: lsp_types::Location {
+                        uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
+                        range: Range {
+                            start: Position {
+                                line: 1928,
+                                character: 28034,
+                            },
+                            end: Position {
+                                line: 28034,
+                                character: 1928,
+                            },
                         },
                     },
+                    message: "message".to_string(),
                 },
-                message: "message".to_string(),
-            }, DiagnosticRelatedInformation {
-                location: lsp_types::Location {
-                    uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
-                    range: Range {
-                        start: Position {
-                            line: 1928,
-                            character: 28034,
-                        },
-                        end: Position {
-                            line: 28034,
-                            character: 1928,
+                DiagnosticRelatedInformation {
+                    location: lsp_types::Location {
+                        uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
+                        range: Range {
+                            start: Position {
+                                line: 1928,
+                                character: 28034,
+                            },
+                            end: Position {
+                                line: 28034,
+                                character: 1928,
+                            },
                         },
                     },
+                    message: "message".to_string(),
                 },
-                message: "message".to_string(),
-            }]),
+                DiagnosticRelatedInformation {
+                    location: lsp_types::Location {
+                        uri: lsp_types::Uri::from_str("file:///path/to/file").unwrap(),
+                        range: Range {
+                            start: Position {
+                                line: 1928,
+                                character: 28034,
+                            },
+                            end: Position {
+                                line: 28034,
+                                character: 1928,
+                            },
+                        },
+                    },
+                    message: "message".to_string(),
+                },
+            ]),
             tags: None,
             data: None,
         };
@@ -157,7 +161,8 @@ mod tests {
         let fast_serialized = super::fast_serialize_error_diagnostic(&diagnostic);
 
         let parsed_serde: serde_json::Value = serde_json::from_str(&serialized).unwrap();
-        let parsed_fast: serde_json::Value = serde_json::from_str(&String::from_utf8(fast_serialized).unwrap()).unwrap();
+        let parsed_fast: serde_json::Value =
+            serde_json::from_str(&String::from_utf8(fast_serialized).unwrap()).unwrap();
 
         assert_eq!(parsed_serde, parsed_fast);
     }
